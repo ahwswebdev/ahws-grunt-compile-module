@@ -17,14 +17,14 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('ahws-grunt-compile-module');
 ```
 
-## The "ahws_grunt_compile_module" task
+## The "compile_module" task
 
 ### Overview
-In your project's Gruntfile, add a section named `ahws_grunt_compile_module` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `compile_module` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  ahws_grunt_compile_module: {
+  compile_module: {
     options: {
       // Task-specific options go here.
     },
@@ -56,7 +56,7 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  ahws_grunt_compile_module: {
+  compile_module: {
     options: {},
     files: {
       'dest/default_options': ['src/testing', 'src/123'],
@@ -70,7 +70,7 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  ahws_grunt_compile_module: {
+  compile_module: {
     options: {
       separator: ': ',
       punctuation: ' !!!',
