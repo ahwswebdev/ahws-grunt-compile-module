@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             _this = this;
 
         var checkModule = function (module, moduleName) {
-            grunt.log.writeln('');
+            grunt.log.writeln(' ');
             grunt.log.writeln('Check: ' + moduleName);
             var modulePath = stripTrailingSlash(module.path);
 
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 if (moduleInstalled(modulePath)) {
                     compileModule(module, moduleName);
                 } else {
-                    grunt.log.writeln('Not installed, download distribution and skip compile.');
+                    grunt.log.writeln('Not compilable, download distribution.');
                     downloadDist(modulePath);
                 }
             } else {
