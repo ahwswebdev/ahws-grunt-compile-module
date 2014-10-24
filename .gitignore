@@ -1,0 +1,11 @@
+/bower_components/*
+/.sass-cache/*
+/node_modules/*
+*.DS_Store
+*.sublime-grunt.cache
+.idea
+*.ipr
+*.iml
+*.iws
+
+/target
