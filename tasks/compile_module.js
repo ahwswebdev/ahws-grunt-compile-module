@@ -22,13 +22,7 @@ module.exports = function (grunt) {
             asyncCb = this.async(),
             done = _.after(Object.keys(options.modules).length, asyncCb),
             _this = this,
-            postInstConfig = {
-                compile: {
-                    options: {
-                        components: {}
-                    }
-                }
-            };
+            postInstConfig = {};
 
         var checkModule = function (module, moduleName) {
             grunt.log.writeln(' ');
@@ -58,12 +52,19 @@ module.exports = function (grunt) {
 
         var compileModule = function (module, moduleName) {
 
-            postInstConfig.compile.options.components[moduleName] = module.bower_postinst;
+            var components = {};
+            components[moduleName] = module.bower_postinst;
+
+            postInstConfig[moduleName] = {
+                options: {
+                    components: components
+                }
+            };
 
             grunt.log.writeln('Compiling..');
 
             grunt.config.set('bower_postinst', postInstConfig);
-            grunt.task.run('bower_postinst');
+            grunt.task.run('bower_postinst:' + moduleName);
 
             done();
         };
