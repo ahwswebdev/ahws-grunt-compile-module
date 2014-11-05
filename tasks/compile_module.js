@@ -70,7 +70,7 @@ module.exports = function (grunt) {
         };
 
         var downloadDist = function (modulePath) {
-            var filePath = modulePath + '/' + 'package.json';
+            var filePath = modulePath + '/' + 'config.json';
 
             if (grunt.file.exists(filePath)) {
                 var json = grunt.file.readJSON(filePath);
