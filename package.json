@@ -1,6 +1,6 @@
 {
     "name": "ahws-grunt-compile-module",
-    "description": "Compile or donwload ahws module",
+    "description": "Compile or download ahws module",
     "version": "0.1.0",
     "homepage": "https://github.com/ahwswebdev/ahws-grunt-compile-module",
     "author": {
