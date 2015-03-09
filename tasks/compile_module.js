@@ -22,7 +22,9 @@ module.exports = function (grunt) {
             asyncCb = this.async(),
             done = _.after(Object.keys(options.modules).length, asyncCb),
             _this = this,
-            postInstConfig = {};
+            postInstConfig = {},
+            numDownloads = {};
+
 
         var checkModule = function (module, moduleName) {
             grunt.log.writeln(' ');
@@ -34,7 +36,7 @@ module.exports = function (grunt) {
                     compileModule(module, moduleName);
                 } else {
                     grunt.log.writeln('Not compilable, download distribution.');
-                    downloadDist(modulePath);
+                    downloadModule(modulePath, moduleName);
                 }
             } else {
                 grunt.log.writeln('Module does not exist, skipping..');
@@ -69,31 +71,62 @@ module.exports = function (grunt) {
             done();
         };
 
-        var downloadDist = function (modulePath) {
-            var filePath = modulePath + '/' + 'config.json';
+        var downloadModule = function (modulePath, moduleName) {
+            var filePath = modulePath + '/' + 'bower.json';
 
             if (grunt.file.exists(filePath)) {
-                var json = grunt.file.readJSON(filePath);
-                if (_.has(json, 'dist')) {
-                    var distPath = json['dist'].toString();
+                var json = grunt.file.readJSON(filePath),
+                    files;
 
-                    var download = http.get(distPath, function(response) {
-                        if (response.statusCode === 200) {
-                            var targetDir = stripTrailingSlash(options.targetDir);
-                            grunt.file.mkdir(targetDir);
+                if (_.has(json, 'main')) {
+                    files = json.main;
+                    if (!_.isArray(files)) {
+                        files = [files];
+                    }
 
-                            var file = fs.createWriteStream(options.targetDir + '/' + getFileName(distPath));
-                            response.pipe(file);
+                    numDownloads[moduleName] = files.length;
 
-                            file.on('finish', function() {
-                                file.close(done);  // close() is async, call cb after close completes.
-                            });
-                        }
+                    files.forEach(function (file) {
+                        downloadFile(file, moduleName);
                     });
                 } else {
                     grunt.log.writeln('No compiled source path specified in package.json, skipping');
-                    done();
+                    downloadComplete(moduleName);
                 }
+            }
+        };
+
+        var downloadFile = function (filePath, moduleName) {
+
+            var path = stripTrailingSlash(options.sourceServer) + '/' + filePath;
+
+            grunt.log.writeln('Downloading (' + path + ')');
+            http.get(path, function(response) {
+                if (response.statusCode === 200) {
+                    var targetDir = stripTrailingSlash(options.targetDir);
+                    grunt.file.mkdir(targetDir);
+                    grunt.file.mkdir(getFilePath(targetDir + '/' + filePath));
+
+                    var file = fs.createWriteStream(targetDir + '/' + filePath, {
+                        flags: 'w',
+                        mode: '0666'
+                    });
+                    response.pipe(file);
+
+                    file.on('finish', function () {
+                        file.close(downloadComplete.bind(this, moduleName));  // close() is async, call cb after close completes.
+                    });
+                } else {
+                    grunt.log.writeln('error (' + path + ')');
+                    downloadComplete(moduleName);
+                }
+            });
+        };
+
+        var downloadComplete = function (moduleName) {
+            numDownloads[moduleName] -= 1;
+            if (numDownloads[moduleName] <= 0) {
+                done();
             }
         };
 
@@ -107,6 +140,10 @@ module.exports = function (grunt) {
 
         var getFileName = function (path) {
             return path.substring(path.lastIndexOf('/') + 1, path.length);
+        };
+
+        var getFilePath = function (path) {
+            return path.replace(getFileName(path), '');
         };
 
 
