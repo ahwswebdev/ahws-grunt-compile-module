@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                     compileModule(module, moduleName);
                 } else {
                     grunt.log.writeln(options.file + ' file not found, module is not compilable.');
-                    grunt.log.ok('Download distribution.')
+                    grunt.log.ok('Download distribution')
                     downloadModule(module.path, moduleName);
                 }
             } else {
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
 
 
 
-            grunt.log.ok('Compile');
+            grunt.log.ok('Compile & copy');
             grunt.config.set('bower_postinst', postInstConfig);
 
             if (setCopyConfig(module, moduleName)) {
