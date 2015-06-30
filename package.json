@@ -1,46 +1,46 @@
 {
-    "name": "ahws-grunt-compile-module",
-    "description": "Compile or donwload ahws module",
-    "version": "0.1.1",
-    "homepage": "https://github.com/ahwswebdev/ahws-grunt-compile-module",
-    "author": {
-        "name": "Rick Ekelschot",
-        "email": "rick@frontmen.nl"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/ahwswebdev/ahws-grunt-compile-module.git"
-    },
-    "bugs": {
-        "url": "https://github.com/ahwswebdev/ahws-grunt-compile-module/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/ahwswebdev/ahws-grunt-compile-module/blob/master/LICENSE-MIT"
-        }
-    ],
-    "engines": {
-        "node": ">= 0.8.0"
-    },
-    "scripts": {
-        "test": "grunt test"
-    },
-    "devDependencies": {
-        "grunt-contrib-jshint": "^0.9.2",
-        "grunt-contrib-clean": "^0.5.0",
-        "grunt-contrib-nodeunit": "^0.3.3",
-        "grunt-contrib-copy": "^0.8.0",
-        "grunt": "~0.4.5"
-    },
-    "dependencies": {
-        "grunt-bower-postinst": "git+https://github.com/ahwswebdev/grunt-bower-postinst.git#0.2.2",
-        "lodash": "2.4.1"
-    },
-    "peerDependencies": {
-        "grunt": "~0.4.5"
-    },
-    "keywords": [
-        "gruntplugin"
-    ]
+  "name": "ahws-grunt-compile-module",
+  "description": "Compile or donwload ahws module",
+  "version": "0.1.2",
+  "homepage": "https://github.com/ahwswebdev/ahws-grunt-compile-module",
+  "author": {
+    "name": "Rick Ekelschot",
+    "email": "rick@frontmen.nl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ahwswebdev/ahws-grunt-compile-module.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahwswebdev/ahws-grunt-compile-module/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ahwswebdev/ahws-grunt-compile-module/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt": "~0.4.5"
+  },
+  "dependencies": {
+    "grunt-bower-postinst": "git+https://github.com/ahwswebdev/grunt-bower-postinst.git#0.2.2",
+    "lodash": "2.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
 }
