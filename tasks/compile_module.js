@@ -30,19 +30,25 @@ module.exports = function (grunt) {
         var checkModule = function (module, moduleName) {
             grunt.log.writeln(' ');
             grunt.log.subhead(moduleName);
-            module.path = stripTrailingSlash(module.path);
 
-            if (moduleExists(module.path)) {
-                if (moduleInstalled(module.path)) {
-                    compileModule(module, moduleName);
+            if (!_.isEmpty(module) && module.path) {
+                module.path = stripTrailingSlash(module.path);
+
+                if (moduleExists(module.path)) {
+                    if (moduleInstalled(module.path)) {
+                        compileModule(module, moduleName);
+                    } else {
+                        grunt.log.writeln(options.file + ' file not found, module is not compilable.');
+                        grunt.log.ok('Download distribution')
+                        downloadModule(module.path, moduleName);
+                    }
                 } else {
-                    grunt.log.writeln(options.file + ' file not found, module is not compilable.');
-                    grunt.log.ok('Download distribution')
-                    downloadModule(module.path, moduleName);
+                    var error = grunt.util.error('Module does not exist in your bower_components directory. Have you tried to run a bower update?');
+                    throw error;
                 }
             } else {
-                var error = grunt.util.error('Module does not exist in your bower_components directory. Have you tried to run a bower update?');
-                throw error;
+                grunt.log.writeln('Module path is undefined, skipping.');
+                done();
             }
         };
 
@@ -64,7 +70,6 @@ module.exports = function (grunt) {
                     components: components
                 }
             };
-
 
 
             grunt.log.ok('Compile & copy');
