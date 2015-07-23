@@ -1,6 +1,6 @@
 # ahws-grunt-compile-module
 
-> Compile or donwload ahws module
+> Compile or download ahws module
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
